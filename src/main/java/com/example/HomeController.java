@@ -1,7 +1,9 @@
 package com.example;
 
+import com.example.gmap.GoogleMapEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,27 +16,13 @@ public class HomeController {
     @Autowired
     private UserRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    String home() {
-
-        repository.deleteAll();
-
-        // save a couple of customers
-        repository.save(new User("Alice", "Smith"));
-        repository.save(new User("Bob", "Smith"));
+    String home(@RequestBody GoogleMapEngine map) {
 
 
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (User customer : repository.findAll()) {
-            System.out.println(customer);
-        }
-        System.out.println();
-
-
-        return "homz oklm";
+        return map.toString();
     }
 
 }
