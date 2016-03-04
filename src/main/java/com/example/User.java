@@ -1,5 +1,7 @@
 package com.example;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -9,9 +11,13 @@ public class User {
     @Id
     private String id;
 
-    private String firstName;
-    private String lastName;
+    public String firstName;
+
+    public String lastName;
+
+    @Email
     public String email;
+
     public String password;
 
     public User() {}
