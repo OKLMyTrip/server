@@ -1,6 +1,8 @@
 package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +25,13 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/sign-in", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    String signIn(@RequestBody User user) {
+    ResponseEntity<ResponseWrapper> signIn(@RequestBody User user) {
 
         repository.save(user);
 
         System.out.println("New user signed : " + user);
 
-        return "OK";
+        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "OK"), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/log-in", headers = {"content-type=application/json"})
