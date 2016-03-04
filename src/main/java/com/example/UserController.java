@@ -22,32 +22,66 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/sign-in", headers = {"content-type=application/json"})
+    @RequestMapping(method = RequestMethod.POST, value = "/sign-up", headers = {"content-type=application/json"})
     public
     @ResponseBody
     ResponseEntity<ResponseWrapper> signIn(@RequestBody User user) {
 
-        repository.save(user);
+        List<User> users = repository.findAll();
+        boolean email_already_registered = false;
 
-        System.out.println("New user signed : " + user);
+        for (User reposUser : users)
+        {
+            if(reposUser.email.equals(user.email))
+            {
+                email_already_registered = true;
+                break;
+            }
+        }
+        if(!email_already_registered)
+        {
+            repository.save(user);
 
-        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "OK"), HttpStatus.OK);
+            System.out.println("New user signed : " + user);
+
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_SIGNED"), HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_MAIL_ALREADY_USED"), HttpStatus.OK);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/log-in", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    String logIn(@RequestBody User user) {
+    ResponseEntity<ResponseWrapper> logIn(@RequestBody User user) {
 
         List<User> users = repository.findAll();
+        boolean userIdentified = false;
+        boolean passIdentified = false;
 
         for ( User reposUser : users ) {
-
+            if(reposUser.email.equals(user.email))
+            {
+                if(reposUser.password.equals(user.password))
+                {
+                    userIdentified = true;
+                    break;
+                }
+            }
 
         }
 
-        System.out.println("logged : " + user);
+        if(userIdentified)
+        {
+            System.out.println("logged : " + user);
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_LOGGED"), HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_WRONG_CREDENTIALS"), HttpStatus.OK);
+        }
 
-        return "OK";
     }
 }
