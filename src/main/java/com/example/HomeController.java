@@ -13,7 +13,7 @@ public class HomeController {
     public
     @ResponseBody
     String home() {
-        return "sisisi";
+        return "homz oklm";
     }
 
 }
