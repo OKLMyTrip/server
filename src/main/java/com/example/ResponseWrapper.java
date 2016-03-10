@@ -11,7 +11,7 @@ public class ResponseWrapper {
 
     public String message;
 
-    ResponseWrapper(boolean _success, String _errorMessage, String _message)
+    public ResponseWrapper(boolean _success, String _errorMessage, String _message)
     {
         this.success = _success;
         this.errorMessage = _errorMessage;
