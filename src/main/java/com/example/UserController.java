@@ -25,7 +25,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/sign-up", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    ResponseEntity<ResponseWrapper> signIn(@RequestBody User user) {
+    ResponseEntity<ResponseWrapper> signIn(@RequestBody UserSignIn user) {
 
         List<User> users = repository.findAll();
         boolean email_already_registered = false;
@@ -40,22 +40,22 @@ public class UserController {
         }
         if(!email_already_registered)
         {
-            repository.save(user);
+            User newUser = repository.save(new User(user));
 
-            System.out.println("New user signed : " + user);
+            System.out.println("New user signed : " + newUser);
 
             return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_SIGNED"), HttpStatus.OK);
         }
         else
         {
-            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_MAIL_ALREADY_USED"), HttpStatus.OK);
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_MAIL_ALREADY_USED"), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/log-in", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    ResponseEntity<ResponseWrapper> logIn(@RequestBody User user) {
+    ResponseEntity<ResponseWrapper> logIn(@RequestBody UserLogIn user) {
 
         List<User> users = repository.findAll();
         boolean userIdentified = false;
@@ -80,8 +80,26 @@ public class UserController {
         }
         else
         {
-            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_WRONG_CREDENTIALS"), HttpStatus.OK);
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_WRONG_CREDENTIALS"), HttpStatus.FORBIDDEN);
         }
 
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/edit", headers = {"content-type=application/json"})
+    public
+    @ResponseBody
+    ResponseEntity<ResponseWrapper> editProfile(@RequestBody User user) {
+        try
+        {
+            User userInDb = repository.findOne(user.id);
+            userInDb.updateEditable(user);
+            repository.save(userInDb);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_UNKNOWN_ERROR"), HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_EDITED"), HttpStatus.OK);
     }
 }
