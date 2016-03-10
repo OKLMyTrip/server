@@ -1,6 +1,6 @@
 package com.example.trip;
 
-import com.example.User;
+import com.example.user.User;
 import com.example.gmap.GoogleMapEngine;
 import org.springframework.data.annotation.Id;
 

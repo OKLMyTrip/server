@@ -1,6 +1,6 @@
 package com.example.trip;
 
-import com.example.ResponseWrapper;
+import com.example.utilities.ResponseWrapper;
 import com.example.gmap.Leg;
 import com.example.gmap.Route;
 import com.example.gmap.Step;
