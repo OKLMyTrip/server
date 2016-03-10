@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Email;
  * Created by thoma on 03/10/16.
  */
 public class UserSignIn {
-    public String firstName;
+        public String firstName;
 
     public String lastName;
 

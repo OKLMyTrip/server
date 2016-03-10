@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+
     @RequestMapping(method = RequestMethod.POST, value = "/sign-up", headers = {"content-type=application/json"})
     public
     @ResponseBody
@@ -29,24 +30,19 @@ public class UserController {
         List<User> users = repository.findAll();
         boolean email_already_registered = false;
 
-        for (User reposUser : users)
-        {
-            if(reposUser.email.equals(user.email))
-            {
+        for (User reposUser : users) {
+            if (reposUser.email.equals(user.email)) {
                 email_already_registered = true;
                 break;
             }
         }
-        if(!email_already_registered)
-        {
+        if (!email_already_registered) {
             User newUser = repository.save(new User(user));
 
             System.out.println("New user signed : " + newUser);
 
             return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_SIGNED"), HttpStatus.OK);
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_MAIL_ALREADY_USED"), HttpStatus.BAD_REQUEST);
         }
     }
@@ -61,11 +57,9 @@ public class UserController {
         boolean passIdentified = false;
         User loggedUser = null;
 
-        for ( User reposUser : users ) {
-            if(reposUser.email.equals(user.email))
-            {
-                if(reposUser.password.equals(user.password))
-                {
+        for (User reposUser : users) {
+            if (reposUser.email.equals(user.email)) {
+                if (reposUser.password.equals(user.password)) {
                     userIdentified = true;
                     loggedUser = reposUser;
                     break;
@@ -74,13 +68,10 @@ public class UserController {
 
         }
 
-        if(userIdentified)
-        {
+        if (userIdentified) {
             System.out.println("logged : " + loggedUser);
             return new ResponseEntity<LoginResponseWrapper>(new LoginResponseWrapper(true, null, "USER_LOGGED", loggedUser), HttpStatus.OK);
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<LoginResponseWrapper>(new LoginResponseWrapper(false, null, "USER_WRONG_CREDENTIALS", null), HttpStatus.FORBIDDEN);
         }
 
@@ -90,21 +81,18 @@ public class UserController {
     public
     @ResponseBody
     ResponseEntity<ResponseWrapper> editProfile(@RequestBody User user) {
-        try
-        {
+        try {
             User userInDb = repository.findOne(user.id);
             userInDb.updateEditable(user);
             repository.save(userInDb);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_UNKNOWN_ERROR"), HttpStatus.CONFLICT);
         }
 
         return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_EDITED"), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = {"content-type=application/json"})
+    @RequestMapping(method = RequestMethod.GET, value = "/list",headers = {"content-type=application/json"})
     public
     @ResponseBody
     ResponseEntity<User> getUser(@RequestParam String userId) {
@@ -112,5 +100,13 @@ public class UserController {
         User userInDb = repository.findOne(userId);
 
         return new ResponseEntity<User>(userInDb, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, headers = {"content-type=application/json"})
+    public
+    @ResponseBody
+    ResponseEntity<List<User>> list() {
+
+        return new ResponseEntity<List<User>>(repository.findAll(), HttpStatus.OK);
     }
 }
