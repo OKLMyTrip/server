@@ -1,6 +1,5 @@
-package com.example;
+package com.example.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 

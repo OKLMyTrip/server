@@ -1,4 +1,4 @@
-package com.example;
+package com.example.comment;
 
 /**
  * Created by thoma on 03/04/16.

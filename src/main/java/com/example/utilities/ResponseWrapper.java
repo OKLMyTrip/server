@@ -1,4 +1,4 @@
-package com.example;
+package com.example.utilities;
 
 /**
  * Created by thoma on 03/04/16.
@@ -11,7 +11,7 @@ public class ResponseWrapper {
 
     public String message;
 
-    ResponseWrapper(boolean _success, String _errorMessage, String _message)
+    public ResponseWrapper(boolean _success, String _errorMessage, String _message)
     {
         this.success = _success;
         this.errorMessage = _errorMessage;

@@ -1,6 +1,5 @@
 package com.example.trip;
 
-import com.example.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
