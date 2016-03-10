@@ -25,6 +25,7 @@ public class Trip {
     public String origin;
     public String destination;
     public int price;
+    public int placesLeft;
     public User user;
 
     public GoogleMapEngine googleMapEngine;

@@ -133,9 +133,15 @@ public class TripController {
         try {
             Trip trip = repository.findOne(sub.tripId);
 
+            if(trip.placesLeft <= 0)
+            {
+                return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "TRIP_NO_PLACE_LEFT"), HttpStatus.FORBIDDEN);
+            }
+
             if(trip.usersSubscribed == null) trip.usersSubscribed = new ArrayList<>();
 
             trip.usersSubscribed.add(sub.userId);
+            trip.placesLeft--;
 
             repository.save(trip);
         }
