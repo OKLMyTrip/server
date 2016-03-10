@@ -21,6 +21,12 @@ Check the file trip-create.json </br>
 *googleMapEngine* : Google api DIRECTION (https://maps.googleapis.com/maps/api/directions/json?origin=Bordeaux&destination=B%C3%A9ziers) </br>
 
 
+**POST** /trip/subscribe </br>
+register a user for a trip </br>
+**params**: </br>
+*userId* : subscribed user's id </br>
+*tripId* : trip's id </br>
+
 ##User endpoints
 
 **POST** /user/sign-up </br>

@@ -4,16 +4,21 @@ import com.example.user.User;
 import com.example.gmap.GoogleMapEngine;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by johan on 04/03/2016.
  */
 public class Trip {
     @Id
-    private String id;
+    public String id;
 
     public String userId;
 
     public Long date;
+
+    public List<String> usersSubscribed;
 
     public String dateDeparture;
     public String hoursDeparture;
@@ -24,5 +29,8 @@ public class Trip {
 
     public GoogleMapEngine googleMapEngine;
 
-
+    Trip()
+    {
+        usersSubscribed = new ArrayList<>();
+    }
 }

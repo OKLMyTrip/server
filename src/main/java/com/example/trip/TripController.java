@@ -1,5 +1,6 @@
 package com.example.trip;
 
+import com.example.user.User;
 import com.example.utilities.ResponseWrapper;
 import com.example.gmap.Leg;
 import com.example.gmap.Route;
@@ -124,17 +125,27 @@ public class TripController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/select", headers = {"content-type=application/json"})
+    @RequestMapping(method = RequestMethod.POST, value = "/subscribe", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    ResponseEntity<ResponseWrapper> select(@RequestBody Trip trip) {
+    ResponseEntity<ResponseWrapper> subscribe(@RequestBody TripSubscription sub) {
 
-        repository.save(trip);
+        try {
+            Trip trip = repository.findOne(sub.tripId);
+
+            if(trip.usersSubscribed == null) trip.usersSubscribed = new ArrayList<>();
+
+            trip.usersSubscribed.add(sub.userId);
+
+            repository.save(trip);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "TRIP_SUBSCRIPTION_ERROR"), HttpStatus.FORBIDDEN);
+        }
 
 
-//        System.out.println("New trip created : " + trip);
-
-        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "TRIP_CREATED"), HttpStatus.OK);
+        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "TRIP_SUBSCRIBED"), HttpStatus.OK);
 
     }
 

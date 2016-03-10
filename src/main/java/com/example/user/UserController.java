@@ -1,5 +1,6 @@
 package com.example.user;
 
+import com.example.utilities.LoginResponseWrapper;
 import com.example.utilities.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,11 +57,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/log-in", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    ResponseEntity<ResponseWrapper> logIn(@RequestBody UserLogIn user) {
+    ResponseEntity<LoginResponseWrapper> logIn(@RequestBody UserLogIn user) {
 
         List<User> users = repository.findAll();
         boolean userIdentified = false;
         boolean passIdentified = false;
+        User loggedUser = null;
 
         for ( User reposUser : users ) {
             if(reposUser.email.equals(user.email))
@@ -68,6 +70,7 @@ public class UserController {
                 if(reposUser.password.equals(user.password))
                 {
                     userIdentified = true;
+                    loggedUser = reposUser;
                     break;
                 }
             }
@@ -76,12 +79,12 @@ public class UserController {
 
         if(userIdentified)
         {
-            System.out.println("logged : " + user);
-            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_LOGGED"), HttpStatus.OK);
+            System.out.println("logged : " + loggedUser);
+            return new ResponseEntity<LoginResponseWrapper>(new LoginResponseWrapper(true, null, "USER_LOGGED", loggedUser), HttpStatus.OK);
         }
         else
         {
-            return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(false, null, "USER_WRONG_CREDENTIALS"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<LoginResponseWrapper>(new LoginResponseWrapper(false, null, "USER_WRONG_CREDENTIALS", null), HttpStatus.FORBIDDEN);
         }
 
     }
