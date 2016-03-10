@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/trip")
+@RequestMapping("/api/trip")
 public class TripController {
 
     @Autowired

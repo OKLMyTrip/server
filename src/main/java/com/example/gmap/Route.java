@@ -33,7 +33,7 @@ public class Route {
     @JsonProperty("legs")
     private List<Leg> legs = new ArrayList<Leg>();
     @JsonProperty("overview_polyline")
-    private OverviewPolyline overviewPolyline;
+    private String overviewPolyline;
     @JsonProperty("summary")
     private String summary;
     @JsonProperty("warnings")
@@ -109,7 +109,7 @@ public class Route {
      *     The overviewPolyline
      */
     @JsonProperty("overview_polyline")
-    public OverviewPolyline getOverviewPolyline() {
+    public String getOverviewPolyline() {
         return overviewPolyline;
     }
 
@@ -119,7 +119,7 @@ public class Route {
      *     The overview_polyline
      */
     @JsonProperty("overview_polyline")
-    public void setOverviewPolyline(OverviewPolyline overviewPolyline) {
+    public void setOverviewPolyline(String overviewPolyline) {
         this.overviewPolyline = overviewPolyline;
     }
 

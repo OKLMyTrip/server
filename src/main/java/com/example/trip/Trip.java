@@ -14,8 +14,6 @@ public class Trip {
     @Id
     public String id;
 
-    public String userId;
-
     public Long date;
 
     public List<String> usersSubscribed;
@@ -30,8 +28,7 @@ public class Trip {
 
     public GoogleMapEngine googleMapEngine;
 
-    Trip()
-    {
+    Trip() {
         usersSubscribed = new ArrayList<>();
     }
 }
