@@ -5,55 +5,55 @@
 
 ##Trip endpoints
 
-*POST* /trip/find
-params:
-precision : (default 2.00)
-date : string date in milliseconde (timestamp)
-originLocation : Google api GEOCODE  (https://maps.googleapis.com/maps/api/geocode/json?&address=Paris)
-destinationLocation : Google api GEOCODE  (https://maps.googleapis.com/maps/api/geocode/json?&address=Paris)
+**POST** /trip/find </br>
+**params**: </br>
+*precision* : (default 2.00) </br>
+*date* : string date in milliseconde (timestamp) </br>
+*originLocation* : Google api GEOCODE  (https://maps.googleapis.com/maps/api/geocode/json?&address=Paris) </br>
+*destinationLocation* : Google api GEOCODE  (https://maps.googleapis.com/maps/api/geocode/json?&address=Paris) </br>
 
 
-*POST* /trip/create
-Check the file trip-create.json
-params:
-userId: id of user who post
-date : string date in milliseconde (timestamp)
-googleMapEngine : Google api DIRECTION  (https://maps.googleapis.com/maps/api/directions/json?origin=Bordeaux&destination=B%C3%A9ziers)
+**POST** /trip/create </br>
+Check the file trip-create.json </br>
+**params**: </br>
+*userId* : id of user who post </br>
+*date* : string date in milliseconde (timestamp) </br>
+*googleMapEngine* : Google api DIRECTION (https://maps.googleapis.com/maps/api/directions/json?origin=Bordeaux&destination=B%C3%A9ziers) </br>
 
 
 ##User endpoints
 
-*POST* /user/sign-up
-register a new user to database
-params:
-firstName: user first name
-lastName : user last name
-email : user mail address
-password : user password
-inscriptionDate : account creation date
+**POST** /user/sign-up </br>
+register a new user to database </br>
+**params**: </br>
+*firstName*: user first name </br>
+*lastName* : user last name </br>
+*email* : user mail address </br>
+*password* : user password </br>
+*inscriptionDate* : account creation date </br>
 
-*POST* /user/log-in
-check credential entry for user
-params:
-email : user mail address
-password : user password
+**POST** /user/log-in </br>
+check credential entry for user </br>
+**params**: </br>
+*email* : user mail address </br>
+*password* : user password </br>
 
-*POST* /user/edit
-edit user profile
-params:
-id : user id
-firstName : user first name
-lastName : user last name
-email : user mail address
-password : user password
-carBrand : user car's brand
-carPlaces : user place in car
-smoker : smoker or not
-music : user tolerance to music
-animals : pet owner or not
+**POST** /user/edit </br>
+edit user profile </br>
+**params**: </br>
+*id* : user id </br>
+*firstName* : user first name </br>
+*lastName* : user last name </br>
+*email* : user mail address </br>
+*password* : user password </br>
+*carBrand* : user car's brand </br>
+*carPlaces* : user place in car </br>
+*smoker* : smoker or not </br>
+*music* : user tolerance to music </br>
+*animals* : pet owner or not </br>
 
 
 ##Comments endpoint
 
-*GET* /comments
-return random list of comments
+**GET** /comments </br>
+return random list of comments </br>
