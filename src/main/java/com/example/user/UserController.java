@@ -18,6 +18,17 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    public
+    @ResponseBody
+    ResponseEntity<List<User>> list() {
+
+        List<User> users = repository.findAll();
+
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
+
     @Autowired
     private UserRepository repository;
 
@@ -92,7 +103,7 @@ public class UserController {
         return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "USER_EDITED"), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/list",headers = {"content-type=application/json"})
+    @RequestMapping(method = RequestMethod.GET, headers = {"content-type=application/json"})
     public
     @ResponseBody
     ResponseEntity<User> getUser(@RequestParam String userId) {
@@ -102,11 +113,4 @@ public class UserController {
         return new ResponseEntity<User>(userInDb, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = {"content-type=application/json"})
-    public
-    @ResponseBody
-    ResponseEntity<List<User>> list() {
-
-        return new ResponseEntity<List<User>>(repository.findAll(), HttpStatus.OK);
-    }
 }
