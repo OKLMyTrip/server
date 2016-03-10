@@ -1,10 +1,8 @@
 package com.example.trip;
 
+import com.example.User;
 import com.example.gmap.GoogleMapEngine;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import org.springframework.data.annotation.Id;
-
-import java.util.Date;
 
 /**
  * Created by johan on 04/03/2016.
@@ -21,6 +19,8 @@ public class Trip {
     public String hoursDeparture;
     public String origin;
     public String destination;
+    public int price;
+    public User user;
 
     public GoogleMapEngine googleMapEngine;
 

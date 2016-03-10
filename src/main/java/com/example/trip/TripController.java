@@ -1,10 +1,13 @@
 package com.example.trip;
 
+import com.example.ResponseWrapper;
 import com.example.gmap.Leg;
 import com.example.gmap.Route;
 import com.example.gmap.Step;
 import com.example.utilities.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 
@@ -30,14 +32,15 @@ public class TripController {
     @RequestMapping(method = RequestMethod.POST, value = "/create", headers = {"content-type=application/json"})
     public
     @ResponseBody
-    String signIn(@RequestBody Trip trip) {
+    ResponseEntity<ResponseWrapper> proposeTrip(@RequestBody Trip trip) {
 
         repository.save(trip);
 
 
-        System.out.println("New user signed : " + trip);
+//        System.out.println("New trip created : " + trip);
 
-        return "OK";
+        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "TRIP_CREATED"), HttpStatus.OK);
+
     }
 
 
@@ -119,4 +122,20 @@ public class TripController {
         return tripNearest;
 
     }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/select", headers = {"content-type=application/json"})
+    public
+    @ResponseBody
+    ResponseEntity<ResponseWrapper> select(@RequestBody Trip trip) {
+
+        repository.save(trip);
+
+
+//        System.out.println("New trip created : " + trip);
+
+        return new ResponseEntity<ResponseWrapper>(new ResponseWrapper(true, null, "TRIP_CREATED"), HttpStatus.OK);
+
+    }
+
 }
