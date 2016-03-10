@@ -27,6 +27,7 @@ register a user for a trip </br>
 *userId* : subscribed user's id </br>
 *tripId* : trip's id </br>
 
+
 ##User endpoints
 
 **POST** /user/sign-up </br>
@@ -38,11 +39,13 @@ register a new user to database </br>
 *password* : user password </br>
 *inscriptionDate* : account creation date </br>
 
+
 **POST** /user/log-in </br>
 check credential entry for user </br>
 **params**: </br>
 *email* : user mail address </br>
 *password* : user password </br>
+
 
 **POST** /user/edit </br>
 edit user profile </br>
@@ -57,6 +60,12 @@ edit user profile </br>
 *smoker* : smoker or not </br>
 *music* : user tolerance to music </br>
 *animals* : pet owner or not </br>
+
+
+**GET** /user </br>
+return user informations </br>
+**params**: </br>
+*id* : user id </br>
 
 
 ##Comments endpoint
