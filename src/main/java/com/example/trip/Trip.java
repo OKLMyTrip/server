@@ -2,8 +2,6 @@ package com.example.trip;
 
 import com.example.gmap.GoogleMapEngine;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
